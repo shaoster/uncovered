@@ -2,7 +2,7 @@
 
 _Uncovered!_ is an original 2-to-6 player cooperative game of imperfect information, heavily inspired by [Hanabi](https://en.wikipedia.org/wiki/Hanabi_(card_game)) and the [Rubik's Cube](https://en.wikipedia.org/wiki/Rubik%27s_Cube).
 
-_Uncovered!_ is meant to evoke the experience of a group of friends solving a Rubik's cube together by taking turns... Only each player may see only a part of the cube and make only a single move at a time.
+_Uncovered!_ is meant to evoke the experience of a group of friends solving a Rubik's cube together by taking turns... Except each player may see only a part of the cube and make only a single move at a time.
 
 This repository is a [boardgame.io](https://boardgame.io/) implementation of this game that, in addition to the rules described below, implements an automatic scoring mechanism based on the game's initial state.
 
@@ -28,11 +28,13 @@ Cards are shuffled and distributed equally among the player hands.
 
 *Intermediate*: Players, without looking, (as in [Indian Poker](https://en.wikipedia.org/wiki/Blind_man%27s_bluff_(poker))) fan their hands facing away from themselves. The card to the player's right (or viewer's left) is the card in the 1st position, the adjacent card is in the 2nd position, and so forth. During the course of the game, players may not look at cards in their own hand facing away from themselves.
 
-    Additionally for intermediate play, if players would like to keep score, each player writes down the sequence of cards in the hand of the player to their right (in other words, the player with the previous turn, counterclockwise).
+    Additionally for intermediate play, if players would like to keep score, each player writes down the sequence of cards in the
+    hand of the player to their right (in other words, the player with the previous turn, counterclockwise).
 
 *Advanced*: The *Advanced* variant of _Uncovered!_ requires 3 or more players. Players fan their hands toward themselves. The card to the player's left (or viewer's right) is the card in the 1st position, the adjacent card is in the 2nd position, and so forth. During the course of the game, players may only look at their own cards. The webapp version of this game will help each player keep track of the location of any cards previously in the player's hand, but in person, players are encouraged to take private notes or just have a really good memory.
 
-    Additionally for advanced play, if players would like to keep score, each player writes down the initial sequence of cards in their hand on a slip of paper and then places it face down.
+    Additionally for advanced play, if players would like to keep score, each player writes down the initial sequence of cards in
+    their hand on a slip of paper and then places it face down.
 
 # Playing the game
 
