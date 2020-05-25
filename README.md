@@ -8,18 +8,13 @@ This repository is a [boardgame.io](https://boardgame.io/) implementation of thi
 
 This game is designed to be played via this web-app, but for clarity, the rule specifications that follow use the language of an in-person tabletop setting.
 
-The game is played with a deck of 17 numbered cards:
- - `0` (1 copy)
+The game is played with a deck of 16 numbered cards:
  - `1` (4 copies)
  - `2` (4 copies)
  - `3` (4 copies)
  - `4` (4 copies)
 
 The game board consists of 4 player hand with 4 cards each arranged around the table.
-
-Additionally, a single card is placed in the center or `community area` of the table.
-
-The game begins with the `0` card face up in the `community area`.
 
 All remaining cards are shuffled and distributed equally among the player hands.
 
@@ -33,20 +28,13 @@ During the course of the game, players may not look at cards in their own hand f
 
 The game begins with the youngest player and turns proceeds counterclockwise around the table. (Obviously, any alternative convention is also acceptable). The first player (for scoring purposes), is called  `Player 0`, the next player counter-clockwise is `Player 1`, and so on.
 
-At the beginning of each player's turn, the player says aloud the current turn number (beginning at 0) and takes one of 4 actions:
+At the beginning of each player's turn, the player says aloud the current turn number (beginning at 0) and takes one of 3 actions:
 
- 1. *Declare*: If the `0` card is in the community area, the player may lay their hand face up on the table. At this point, the game ends. Proceed to the [Winning the Game](#winning-the-game) section for scoring.
+ 1. *Declare*: The player may lay their hand face up on the table. At this point, the game ends. Proceed to the [Winning the Game](#winning-the-game) section for scoring.
  
- 2. *Swap with community*: The player may swap any card in a player's hand (including their own) with the card currently face up in the `community area`.
-   - The card placed into the community area is always face up.
-   - The previous community card is placed in the new community card's previous hand position.
-   - (Beginner Tip) When a card enters a player's hand, and the card's value matches the position in the hand (for example, card `3` is placed in position 3), that player may turn the card to face themselves. This indicates that this card has reached its intended position and should not be the target of future swaps.
-   
- 3. *Swap with another player*: The player may swap any card from their own hand with any card in any other player's hand.
+ 2. *Swap with another player*: The player may swap any card from their own hand with any card in any other player's hand.
     - Each card enterring a player's hand assumes the position of the card that just left it.
     - (Beginner Tip) When a card enters a player's hand and the card's value matches the position in the hand (for example, card `3` is placed in position 3), that player may turn the card to face themselves. This indicates that this card has reached its intended position and should not be the target of future swaps.
- 
- 4. *Pass*: The player may pass their turn, performing no actions.
  
  # Winning the Game
  
@@ -67,4 +55,4 @@ At the beginning of each player's turn, the player says aloud the current turn n
  
  # Manually Scoring a Game
  
-TBD. (I don't yet know an efficient algorithm for determining this).
+TBD. (I don't yet know an algorithm that's plausible by hand).
