@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge, Container, Row, Col, Card } from 'react-bootstrap';
+import { Badge, Card, Col, Container, ListGroup, ListGroupItem, Row} from 'react-bootstrap';
 import { Client } from 'boardgame.io/react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
@@ -14,16 +14,7 @@ const PLAYER_NAMES = [
 ]
 
 function IsVictory(hands) {
-  let lastHandSeen = null;
-  for (const player in hands) {
-    if (lastHandSeen === null) {
-      lastHandSeen = hands[player];
-    }
-    else if (hands[player] !== lastHandSeen) {
-      return false;
-    }
-  }
-  return true;
+  return hands.values().every(cards => cards === hands.values()[0]);
 }
 
 const Uncovered = {
@@ -94,7 +85,7 @@ const PlayerCard = (props) => {
       isCombineEnabled
     >
       {(provided, snapshot) => (
-        <Col className="card-slot" xs={1} ref={provided.innerRef}>
+        <ListGroupItem className="card-slot" xs={1} ref={provided.innerRef}>
           <Draggable
             draggableId={cardId.toString()}
             index={0}>
@@ -117,14 +108,14 @@ const PlayerCard = (props) => {
           >
             {provided.placeholder}
           </span>
-        </Col> 
+        </ListGroupItem> 
       )}
     </Droppable>
   );
 };
 
 const PlayerHand = (props) => {
-  const { player, hand, playerIndex, isPlayerTurn } = props;
+  const { hand, playerIndex } = props;
   const cards = hand.map((cardValue, cardIndex) => (
     <PlayerCard
       key={cardIndex.toString()}
@@ -134,19 +125,17 @@ const PlayerHand = (props) => {
     />
   ));
   return (
-    <Container className="player-hand" fluid>
-      <Row>
-        <Col xs={4}>
-          <h1 className="player-name">
-            <Badge>Player:</Badge> 
-            {PLAYER_NAMES[playerIndex]}
-          </h1>
-        </Col>
-      </Row>
-      <Row className={"card-row" + playerIndex}>
+    <Card className="player-block">
+      <Card.Body>
+        <Card.Title className="player-name">
+          <Badge>Player:</Badge> 
+          {PLAYER_NAMES[playerIndex]}
+        </Card.Title>
+      </Card.Body> 
+      <ListGroup className="player-hand" horizontal>
         {cards}
-      </Row>
-    </Container>
+      </ListGroup>
+    </Card>
   );
 
 
@@ -177,11 +166,8 @@ const UncoveredBoard = (props) => {
   // TBD: Support multiple player-number layouts.
   const playerHands = ctx.playOrder.map((player, playerIndex) => (
     <PlayerHand
-      key={player}
-      player={player}
       hand={G.hands[playerIndex]}
       playerIndex={playerIndex}
-      isPlayerTurn={playerIndex === ctx.playOrderPos}
     />
   ));
   
@@ -191,10 +177,11 @@ const UncoveredBoard = (props) => {
     <DragDropContext onDragEnd={onDragEnd}>
       <Container className="board">
         <Row>
-          <Col>
-            {playerHands.map((hand, i) => <div style={{padding: '4px'}} key={i.toString()}>{hand}</div>)}
+          <Col className="game-name">
+            <h1>Uncovered!</h1>
           </Col>
         </Row>
+        {playerHands.map((hand, i) => <Row><Col>{hand}</Col></Row>)}
       </Container>
     </DragDropContext>
   );

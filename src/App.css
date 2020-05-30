@@ -2,18 +2,39 @@ body {
     background-color: #EFEFEF;
 }
 
+.game-name {
+    text-align: center;
+}
+
+.player-block {
+    margin: 2px;
+    padding: 1px;
+}
+
 .player-hand {
+    border-top: 0px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 0px 4px 0px;
+}
+
+.card-body {
+    padding-top: 16px;
+    padding-bottom: 0px;
 }
 
 .player-name {
     text-align: center;
-    font-size: large;
 }
 
 .card-slot {
-    border: 1px solid #DDDDDD;
-    padding: 4px 4px 4px 4px;
+    border: 2px solid #AAAAAA !important;
+    border-radius: 4px;
+    padding: 2px 2px 2px 2px;
+    margin: 4px 4px 4px 4px;
     height: 108px;
+    width: 108px;
 }
 
 .card-position {
@@ -24,6 +45,7 @@ body {
     text-height: 100%;
     text-align: center;
     border-radius: 4px;
+    border: 1px solid #444444;
 }
 
 .card-value-unknown {
