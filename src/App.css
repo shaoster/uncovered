@@ -6,9 +6,43 @@ body {
     text-align: center;
 }
 
+.instructions {
+    text-align: center;
+    padding: 2px;
+    padding-bottom: 8px;
+}
+
+.player-message {
+    padding-bottom: 8px; 
+}
+
+.controls {
+    margin-top: 2px;
+}
+
+.play-again {
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+
+.uncover-button {
+    margin-top: -8px;
+    margin-bottom: 16px;
+    float: right; 
+}
+
+.player-area {
+    /* Hack... */
+    margin-left: -40px;
+}
+
 .player-block {
     margin: 2px;
     padding: 1px;
+}
+
+.highlighted {
+    background-color: #fdffb6;
 }
 
 .player-hand {
@@ -66,4 +100,10 @@ body {
 
 .card-value-4 {
     background-color: #ef476f;
+}
+
+.copyright {
+    text-align: center;
+    padding: 2px;
+    padding-top: 8px;
 }
