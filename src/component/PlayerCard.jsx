@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ListGroupItem } from 'react-bootstrap';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 import {
+  CheckVisibilityContext
+} from '../Context';
+import {
   UNIQUE_CARD_COUNT,
 } from '../Constants';
 
+
 const PlayerCard = (props) => {
-  const { playerIndex, cardValue, cardIndex} = props;
+  const { playerIndex, cardValue, cardIndex } = props;
+  const { setCardToCheckVisibility } = useContext(CheckVisibilityContext);
   const cardId = playerIndex * UNIQUE_CARD_COUNT + cardIndex;
   const getDragStyle = (dragStyle, snapshot) => {
     // Hack from https://github.com/atlassian/react-beautiful-dnd/issues/374#issuecomment-569817782
@@ -15,7 +20,6 @@ const PlayerCard = (props) => {
     if (!snapshot.isDropAnimating) {
       return dragStyle;
     }
-
     return {
       ...dragStyle,
       // cannot be 0, but make it super tiny
@@ -28,7 +32,16 @@ const PlayerCard = (props) => {
       isCombineEnabled
     >
       {(provided, snapshot) => (
-        <ListGroupItem className="card-slot" xs={1} ref={provided.innerRef}>
+        <ListGroupItem
+          className="card-slot"
+          xs={1}
+          ref={provided.innerRef}
+          onMouseEnter={() => setCardToCheckVisibility({
+            playerIndex: playerIndex,
+            cardIndex: cardIndex,
+          })}
+          onMouseLeave={() => setCardToCheckVisibility(null)}
+        >
           <Draggable
             draggableId={cardId.toString()}
             index={cardId}>

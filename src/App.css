@@ -41,6 +41,24 @@ body {
     padding: 1px;
 }
 
+.player-can-see-self {
+    background-image: url('eye-straight.png');
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+.player-can-see-up {
+    background-image: url('eye-up.png');
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+.player-can-see-down {
+    background-image: url('eye-down.png');
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
 .highlighted {
     background-color: #fdffb6;
 }
@@ -69,6 +87,10 @@ body {
     margin: 4px;
     height: 116px;
     width: 116px;
+}
+
+.card-slot:hover {
+    background-color: #fdffb6;
 }
 
 .player-card {

@@ -105,7 +105,7 @@ const Game = {
   endIf: (G, ctx) => {
     if (G.hasUncovered) {
       if (IsVictory(G.hands)) {
-        return { score: ctx.turn - 1 };
+        return { score: ctx.turn - 1, winner: ctx.currentPlayer, draw: true };
       } else {
         return { score: -1 };
       }
