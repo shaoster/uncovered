@@ -53,9 +53,9 @@ At the beginning of each player's turn, the player says aloud the current turn n
  
 The game ends when a player *Uncovers* during their turn. In *Intermediate* and *Advanced* versions, this action prompts all players to lay their hands face up on the table in order to determine the outcome of the game.
  
-The game is considered won if the number on every card in every player's hand matches its position. The game is lost otherwise.
+The game is considered won if every player's hand has the same sequence of card numbers.
  
-In other words, to win a game, every player's hand should contain the cards `1`, `2`, `3,` and `4`, in that order.
+For example, in a won game, every player's hand might contain the cards `3`, `2`, `1,` and `4`, in that order.
  
 *Intermediate/Advanced*: To score a winning game, enter the following pieces of information into the webapp's scoring screen in the appropriate boxes:
  
