@@ -65,13 +65,10 @@ body {
 .card-slot {
     border: 2px solid #AAAAAA !important;
     border-radius: 4px;
-    padding: 2px 2px 2px 2px;
-    margin: 4px 4px 4px 4px;
-    height: 108px;
-    width: 108px;
-}
-
-.card-position {
+    padding: 8px;
+    margin: 4px;
+    height: 116px;
+    width: 116px;
 }
 
 .player-card {
