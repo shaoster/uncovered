@@ -26,7 +26,7 @@ function MakeVisible(G, ctx, playerIndex, handIndex) {
 }
 
 function IsVictory(hands) {
-  return hands.every(cards => cards === hands[0]);
+  return hands.every(cards => cards.every((v, i) => v === hands[0][i]));
 }
 
 const Uncovered = {
