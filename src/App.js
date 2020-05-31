@@ -55,7 +55,6 @@ const Uncovered = {
     moveLimit: 1,
   }, 
   endIf: (G, ctx) => {
-    console.log(G);
     if (G.hasUncovered) {
       if (IsVictory(G.hands)) {
         return { score: ctx.turn - 1 };
@@ -185,7 +184,6 @@ const UncoveredBoard = (props) => {
     () => playerMessage !== null,
     [playerMessage]
   );
-  console.log(props);
   const playerName = playerID !== null ? PLAYER_NAMES[playerID] : "Nemo";
   if (playerID !== null) {
     // TBD: ...
