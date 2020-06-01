@@ -28,7 +28,6 @@ const PlayerHand = (props) => {
    G.visibility[playerIndex][cardToCheckVisibility.playerIndex][cardToCheckVisibility.cardIndex]) {
     canSeeClassName += " player-can-see-";
     // We can see the card.
-    console.log(cardToCheckVisibility, playerIndex);
     if (cardToCheckVisibility.playerIndex > playerIndex) {
         canSeeClassName += "down";
     } else if (cardToCheckVisibility.playerIndex < playerIndex) {

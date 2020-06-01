@@ -14,7 +14,7 @@ import PlayerArea from './PlayerArea';
 import GameOver from './GameOver';
 
 const Board = (props) => {
-  const { ctx, moves, playerID } = props;
+  const { ctx, moves, playerID, reset } = props;
   const [playerMessage, setPlayerMessage] = useState(null);
   const hasPlayerMessage = useMemo(
     () => playerMessage !== null,
@@ -27,7 +27,7 @@ const Board = (props) => {
   }
   return (
     <Container>
-      <GameOver score={ctx.gameover}/>
+      <GameOver gameover={ctx.gameover} reset={reset}/>
       <Modal show={hasPlayerMessage} onHide={() => setPlayerMessage(null)}>
         <Modal.Header closeButton>
           <Modal.Title>{playerMessage && playerMessage.title}</Modal.Title>
