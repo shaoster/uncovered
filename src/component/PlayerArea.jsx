@@ -11,7 +11,7 @@ import {
 } from '../Constants';
 import PlayerHand from './PlayerHand';
 
-export default (props) => {
+const PlayerArea = (props) => {
   const { G, ctx, moves, setPlayerMessage } = useContext(GameContext);
   // Used for toggling which (if any) card to show visibility for.
   const [cardToCheckVisibility, setCardToCheckVisibility] = useState(null);
@@ -53,6 +53,7 @@ export default (props) => {
   };
   const playerHands = ctx.playOrder.map((player, playerIndex) => {
     const isPlayerTurn = ctx.playOrderPos === playerIndex;
+    console.log(G);
     return <PlayerHand
       hand={G.hands[playerIndex]}
       playerIndex={playerIndex}
@@ -76,3 +77,5 @@ export default (props) => {
     </DragDropContext>
   );
 };
+
+export default PlayerArea;

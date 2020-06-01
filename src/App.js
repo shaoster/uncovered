@@ -1,6 +1,7 @@
 import { Client } from 'boardgame.io/react';
+import { SocketIO } from 'boardgame.io/multiplayer';
 
-import Game from './Game.js';
+import { Game } from './game.js';
 import Board from './component/Board.jsx';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,6 +11,9 @@ const App = Client({
   game: Game,
   board: Board,
   numPlayers: 4,
+  multiplayer: SocketIO({ server: 'localhost:8000' }),
+  // TESTING
+  playerID: "0",
 });
 
 export default App;
