@@ -17,11 +17,12 @@ function IsVictory(hands) {
 }
 
 export const Game = {
+  name: "uncovered",
   setup: (ctx, setupData) => {
     // Create the deck.
     const deck = new Array(UNIQUE_CARD_COUNT * ctx.numPlayers)
-       .map((_, i) => (i % ctx.numPlayers) + 1);
-    console.log(deck);
+      .fill(null)
+      .map((_, i) => (i % ctx.numPlayers) + 1); 
 
     // Shuffle the deck.
     const shuffled = ctx.random.Shuffle(deck);
@@ -114,7 +115,6 @@ export const Game = {
     }
   },
   playerView: (G, ctx, playerID) => {
-    console.log(G, ctx, playerID);
     const strippedHands = new Array(ctx.numPlayers);
     const visibility = G.visibility;
     // In demo mode, we just show the player whose turn it is so we don't have to set up
@@ -137,7 +137,7 @@ export const Game = {
     }
   },
   minPlayers: 2,
-  maxPlayers: 4,
+  maxPlayers: 6,
   ai: {
     enumerate: (G, ctx) => {
       const moves = [];

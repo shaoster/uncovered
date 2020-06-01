@@ -2,6 +2,14 @@ body {
     background-color: #EFEFEF;
 }
 
+.phase {
+    width: 100%;
+}
+
+.board {
+    width: 100%;
+}
+
 .game-name {
     text-align: center;
 }
@@ -26,14 +34,17 @@ body {
 }
 
 .uncover-button {
-    margin-top: -8px;
     margin-bottom: 16px;
+    margin-right: 16px;
+    margin-left: 16px;
     float: right; 
 }
 
 .player-area {
     /* Hack... */
-    margin-left: -40px;
+    margin-left: -30px;
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
 .player-block {

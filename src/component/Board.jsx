@@ -6,12 +6,13 @@ import {
 
 import { GameContext } from '../Context';
 import {
-  DEMO_MODE,
   PLAYER_NAMES,
 } from '../Constants';   
 
 import PlayerArea from './PlayerArea';
 import GameOver from './GameOver';
+
+const DEMO_MODE = false;
 
 const Board = (props) => {
   const { ctx, moves, playerID, reset } = props;
@@ -20,13 +21,14 @@ const Board = (props) => {
     () => playerMessage !== null,
     [playerMessage]
   );
+  console.log(props);
   const playerName = DEMO_MODE ?
     PLAYER_NAMES[ctx.playOrder.indexOf(ctx.currentPlayer)] : PLAYER_NAMES[playerID];
   if (playerID !== null) {
     // TBD: ...
   }
   return (
-    <Container>
+    <Container className="board" fluid>
       <GameOver gameover={ctx.gameover} reset={reset}/>
       <Modal show={hasPlayerMessage} onHide={() => setPlayerMessage(null)}>
         <Modal.Header closeButton>
@@ -53,10 +55,10 @@ const Board = (props) => {
             <Card.Body>
               <Card.Title>Hello {playerName}!</Card.Title>
               <Card.Text className="player-message">
-                Think you've won? &nbsp;
-                <Button onClick={()=>moves.uncover()} className="uncover-button">Uncover!</Button>
+                Think you've won?
               </Card.Text>
             </Card.Body>
+            <Button onClick={()=>moves.uncover()} className="uncover-button">Uncover!</Button>
             <ListGroup>
               <ListGroupItem>Turns Taken: {ctx.turn - 1}</ListGroupItem>
             </ListGroup>
