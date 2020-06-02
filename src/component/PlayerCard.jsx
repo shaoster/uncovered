@@ -55,9 +55,7 @@ const PlayerCard = (props) => {
                 {...draggableProps}
                 {...dragHandleProps}
                 style={getDragStyle(draggableProps.style, snapshot)}
-              >
-                &nbsp;
-              </div>
+              />
             )}
           </Draggable>
           <span
