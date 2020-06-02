@@ -21,12 +21,8 @@ const Board = (props) => {
     () => playerMessage !== null,
     [playerMessage]
   );
-  console.log(props);
   const playerName = DEMO_MODE ?
     PLAYER_NAMES[ctx.playOrder.indexOf(ctx.currentPlayer)] : PLAYER_NAMES[playerID];
-  if (playerID !== null) {
-    // TBD: ...
-  }
   return (
     <Container className="board" fluid>
       <GameOver gameover={ctx.gameover} reset={reset}/>
@@ -58,7 +54,12 @@ const Board = (props) => {
                 Think you've won?
               </Card.Text>
             </Card.Body>
-            <Button onClick={()=>moves.uncover()} className="uncover-button">Uncover!</Button>
+            <Button
+              onClick={moves.uncover}
+              className="uncover-button"
+              disabled={playerID !== ctx.currentPlayer}>
+              Uncover!
+            </Button>
             <ListGroup>
               <ListGroupItem>Turns Taken: {ctx.turn - 1}</ListGroupItem>
             </ListGroup>

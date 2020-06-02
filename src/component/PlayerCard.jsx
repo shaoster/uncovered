@@ -3,7 +3,8 @@ import { ListGroupItem } from 'react-bootstrap';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 import {
-  CheckVisibilityContext
+  CheckVisibilityContext,
+  GameContext,
 } from '../Context';
 import {
   UNIQUE_CARD_COUNT,
@@ -13,6 +14,7 @@ import {
 const PlayerCard = (props) => {
   const { playerIndex, cardValue, cardIndex } = props;
   const { setCardToCheckVisibility } = useContext(CheckVisibilityContext);
+  const { ctx, playerID } = useContext(GameContext);
   const cardId = playerIndex * UNIQUE_CARD_COUNT + cardIndex;
   const getDragStyle = (dragStyle, snapshot) => {
     // Hack from https://github.com/atlassian/react-beautiful-dnd/issues/374#issuecomment-569817782
@@ -44,7 +46,8 @@ const PlayerCard = (props) => {
         >
           <Draggable
             draggableId={cardId.toString()}
-            index={cardId}>
+            index={cardId}
+            isDragDisabled={playerID !== ctx.currentPlayer}>
             {({ innerRef, draggableProps, dragHandleProps }, snapshot) => (
               <div
                 className={"player-card card-value-" + (cardValue === null ? "unknown" : cardValue)}

@@ -22,7 +22,7 @@ export const Game = {
     // Create the deck.
     const deck = new Array(UNIQUE_CARD_COUNT * ctx.numPlayers)
       .fill(null)
-      .map((_, i) => (i % ctx.numPlayers) + 1); 
+      .map((_, i) => (i % UNIQUE_CARD_COUNT) + 1); 
 
     // Shuffle the deck.
     const shuffled = ctx.random.Shuffle(deck);

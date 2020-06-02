@@ -53,7 +53,6 @@ const PlayerArea = (props) => {
   };
   const playerHands = ctx.playOrder.map((player, playerIndex) => {
     const isPlayerTurn = ctx.playOrderPos === playerIndex;
-    console.log(G);
     return <PlayerHand
       hand={G.hands[playerIndex]}
       playerIndex={playerIndex}

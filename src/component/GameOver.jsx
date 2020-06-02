@@ -5,7 +5,6 @@ import { Button, Modal } from 'react-bootstrap';
 const GameOver = (props) => {
   const { gameover, reset } = props;
   const score = typeof gameover === 'undefined' ? null : gameover.score;
-  console.log(score);
   const [hide, setHide] = useState(false);
   // TBD: Play again button for multiplayer.
   return (
