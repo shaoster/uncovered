@@ -6,8 +6,126 @@ body {
     width: 100%;
 }
 
+.hidden {
+    display: none;
+}
+
 .board {
     width: 100%;
+}
+
+.phase {
+    border: 2px solid #AAAAAA;
+    border-radius: 4px;
+    padding: 4px;
+    margin: 0px 0px 4px 0px;
+    text-align: center;
+/*    min-width: 448px;
+    max-width: 600px;
+*/
+}
+
+.phase > div {
+    border: 2px solid #AAAAAA;
+    border-radius: 4px;
+    padding: 4px;
+
+}
+
+.phase-title {
+    font-size: large;
+    font-weight: bold;
+}
+
+.phase > p {
+    margin-top: 16px;
+    font-size: large;
+    font-weight: bold;
+}
+
+.phase select {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    text-align: center;
+    width: 50%;
+    clear: both;
+}
+
+.phase select:first-child {
+    display: None;
+}
+
+#game-creation {
+    background-color: white;
+}
+
+#game-creation > p {
+    font-size: large; 
+}
+
+#instances {
+    background-color: white;
+}
+
+#instances > table > tbody {
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+#instances > table > tbody > tr {
+    width: 100%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-left: 0;
+    margin-right: 0;
+    display: table-row;
+}
+#instances > table > tbody > tr > td {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#instances > table > tbody > tr > td:first-child {
+    display: none;
+}
+
+#instances > table > tbody > tr > td:nth-child(2) {
+    min-width: 80px;
+    max-width: 120px;
+    text-align: left;
+    font-weight: bold;
+}
+
+#instances > table > tbody > tr > td:nth-child(3) {
+    min-width: 200px;
+}
+
+#instances > table > tbody > tr > td:last-child {
+    width: 100%;
+    margin-right: 0px;
+    padding-right: 0px;
+    text-align: right;
+}
+
+#instances > table > tbody > tr > td:last-child > div {
+    margin: 0px;
+    padding: 0px;
+}
+
+#instances > table > tbody > tr > td > div > button {
+    margin-left: 2px;
+    margin-right: 0px; 
+    min-width: 60px;
+}
+
+#instances > table > tbody > tr > td > button {
+    margin-left: 2px;
+    margin-right: 0px; 
+    min-width: 60px;
 }
 
 .game-name {
@@ -53,7 +171,7 @@ body {
 }
 
 .player-can-see-self {
-    background-image: url('eye-straight.png');
+    background-image: url('eye-down.png');
     background-position: right;
     background-repeat: no-repeat;
 }

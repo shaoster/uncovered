@@ -37,9 +37,9 @@ const PlayerHand = (props) => {
     }
   }
   return (
-    <Card className={"player-block" + (isPlayerTurn ? " highlighted" : "") + canSeeClassName}>
+    <Card className={"player-block" + (isPlayerTurn ? " highlighted" : "")}>
       <Card.Body>
-        <Card.Title className="player-name">
+        <Card.Title className={"player-name" + canSeeClassName}>
           <Badge>Player:</Badge>
           {PLAYER_NAMES[playerIndex]}
         </Card.Title>
