@@ -4,7 +4,6 @@ import {
   Col, Container, Row
 } from 'react-bootstrap';
 
-
 import { CheckVisibilityContext, GameContext } from '../Context.js';
 import {
   UNIQUE_CARD_COUNT,
