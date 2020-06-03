@@ -55,7 +55,7 @@ const Board = (props) => {
               </Card.Text>
             </Card.Body>
             <Button
-              onClick={moves.uncover}
+              onClick={() => moves.uncover()}
               className="uncover-button"
               disabled={playerID !== ctx.currentPlayer}>
               Uncover!
