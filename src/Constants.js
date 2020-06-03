@@ -7,7 +7,9 @@ export const PLAYER_NAMES = [
   'Apple',
   'Banana',
   'Cranberry',
-  'Raven',
+  'Grape',
+  'Lemon',
+  'Peach',
 ];
 export const UNIQUE_CARD_COUNT = 4;
 export const INITIAL_VISIBILITY = "SEE_OWN";

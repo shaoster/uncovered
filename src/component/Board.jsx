@@ -7,7 +7,7 @@ import {
 import { GameContext } from '../Context';
 import {
   PLAYER_NAMES,
-} from '../Constants';   
+} from '../Constants';
 
 import PlayerArea from './PlayerArea';
 import GameOver from './GameOver';
