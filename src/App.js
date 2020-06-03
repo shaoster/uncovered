@@ -3,9 +3,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 //import { Lobby } from 'boardgame.io/react';
 //import { SocketIO } from 'boardgame.io/multiplayer';
 
-import { Game } from './game.js';
-import Board from './component/Board.jsx';
-import GameLobby from './component/GameLobby.jsx';
+import GameWindow from './component/GameWindow';
+import Welcome from './component/Welcome';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -21,18 +20,18 @@ export default () => <GameClient playerID="0" />;
 */
 
 
-export default () => {
+export default () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/">
-        <GameLobby/>
-      </Route>
       <Route path="/:gameId">
         <GameWindow/>
       </Route>
+      <Route path="/">
+        <Welcome/>
+      </Route>
     </Switch>
   </BrowserRouter>
-}
+);
 
 
 
