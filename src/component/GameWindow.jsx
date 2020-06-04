@@ -5,7 +5,6 @@ import { SocketIO } from 'boardgame.io/multiplayer';
 
 import Game from '../game';
 import Board from './Board';
-console.log(process.env.NODE_ENV);
 const server = process.env.NODE_ENV === 'development' ? 
   `http://localhost:8000`:
   `https://${window.location.hostname}`;
