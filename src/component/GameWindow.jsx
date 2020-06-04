@@ -28,7 +28,6 @@ export default (props) => {
     board: Board,
     multiplayer: SocketIO({ server: server }),
   });
-  console.log(roomData);
   const { playerSeat, secret } = JSON.parse(roomData);
   return <GameClient gameID={roomID} playerID={playerSeat.toString()} credentials={secret}/>;
 }

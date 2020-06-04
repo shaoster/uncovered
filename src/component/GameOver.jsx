@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { useCookies } from 'react-cookie';
 import { useHistory, useParams } from 'react-router-dom';
 
 const GameOver = (props) => {
   const { gameover } = props;
   const { roomID } = useParams();
   const history = useHistory();
-  const [cookies] = useCookies([roomID]);
+  const roomData = JSON.parse(localStorage.getItem(roomID));
 
   const score = typeof gameover === 'undefined' ? null : gameover.score;
   const [hide, setHide] = useState(false);
@@ -16,8 +15,8 @@ const GameOver = (props) => {
     fetch('/games/uncovered/' + roomID + '/playAgain', {
       method: 'POST',
       body: JSON.stringify({
-        playerID: cookies[roomID].playerSeat,
-        credentials: cookies[roomID].secret,
+        playerID: roomData.playerSeat,
+        credentials: roomData.secret,
       }),
       headers: {
         'Content-Type': 'application/json'

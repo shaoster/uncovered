@@ -10,7 +10,7 @@ const GameLobby = (props) => {
   const { players, roomID } = props;
   const history = useHistory();
   const [playButtonEnabled, setPlayButtonEnabled] = useState(false);
-  const [roomData, setRoomData] = useState(localStorage.getItem(roomID) || {});
+  const [roomData, setRoomData] = useState(JSON.parse(localStorage.getItem(roomID)) || {});
   const isCurrentPlayer = (seatId) => roomData.playerSeat === seatId;
   const currentSeatState = () => players.reduce((acc, p) => {
     acc[p.id] = !p.name ? 'open':
@@ -20,7 +20,15 @@ const GameLobby = (props) => {
   // Used to track transient states. Props are the server-side source of truth.
   const attemptAction = (state, action) => {
     if (action.type === 'refresh') {
-      return currentSeatState()
+      // TODO: Don't overwrite transitional states.
+      let transientState = Object.assign({}, state);
+      const serverSeatState = currentSeatState();
+      for (let seatId in serverSeatState) {
+        if (!(transientState[seatId] in ['waiting', 'player'])) {
+          transientState[seatId] = serverSeatState[seatId];
+        }
+      }
+      return transientState; 
     }
     return Object.assign({}, state, { [action.seatId]: action.targetState}); 
   };
@@ -29,13 +37,20 @@ const GameLobby = (props) => {
   useEffect(
     () => {
       transitionSeats({type: 'refresh'}); 
-      if (players.every(p => 'name' in p) && roomData.playerSeat) {
+    },
+    [players]
+  );
+  useEffect(
+    () => {
+      if (players.every(p => 'name' in p) && 'playerSeat' in roomData) {
         setPlayButtonEnabled(true);
       }
     },
-    [players, roomData],
+    [players, roomData]
   );
-  const stand = (seatId) => {
+
+  const stand = (seatId, _secret) => {
+    const secret = _secret || roomData.secret;
     transitionSeats({
       targetState: 'waiting',
       seatId: seatId 
@@ -47,11 +62,10 @@ const GameLobby = (props) => {
       },
       body: JSON.stringify({
         playerID: seatId,
-        credentials: roomData.secret
+        credentials: secret
       })
     })
     .then(() => {
-      console.log("removing cookie");
       transitionSeats({
         targetState: 'open',
         seatId: seatId 
@@ -64,8 +78,10 @@ const GameLobby = (props) => {
       seatId: seatId 
     });
     // Stand up from previous seat if necessary.
-    const maybeStand = roomData.playerSeat ? 
-      () => stand(roomData.playerSeat) :
+    const previousSecret = 'secret' in roomData ? roomData.secret : null;
+    const previousSeat = 'playerSeat' in roomData ? roomData.playerSeat : null;
+    const maybeStand = previousSeat !== null && previousSeat !== seatId ? 
+      () => stand(previousSeat, previousSecret) :
       Promise.resolve();
     return fetch('/games/uncovered/' + roomID + '/join', {
       method: 'POST',
@@ -79,6 +95,10 @@ const GameLobby = (props) => {
     })
     .then(res => res.json())
     .then(data => {
+      transitionSeats({
+        targetState: 'player',
+        seatId: seatId 
+      });
       // We can't just immediately use roomData after setRoomData because
       // we're in an asynchronous context and the change is propagated
       // asynchronously too.
@@ -93,15 +113,16 @@ const GameLobby = (props) => {
         roomID,
         JSON.stringify(roomDataSync) 
       );
-      transitionSeats({
-        targetState: 'player',
-        seatId: seatId 
-      });
     })
     .catch((err) => {
-      
+      transitionSeats({
+        targetState: 'open',
+        seatId: seatId 
+      });
+      localStorage.removeItem(roomID);
+      setRoomData({});
     })
-    .then(maybeStand);;
+    .then(maybeStand);
   }
   const renderSeat = (seatId) => {
     const seatState = seatStates[seatId];
@@ -178,10 +199,9 @@ export default () => {
     if (roomState === null) {
       refreshRoomState();
     }
-    const interval = setInterval(refreshRoomState, 500);
+    const interval = setInterval(refreshRoomState, 1000);
     return () => clearInterval(interval);
   });
-  console.log(roomState);
   return (
     <Container>
       <Row>
