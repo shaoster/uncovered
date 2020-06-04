@@ -1,6 +1,5 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import { Col, Container, FormControl, InputGroup, ListGroup, Row } from 'react-bootstrap';
-import { useCookies } from 'react-cookie';
+import { Button, Col, Container, FormControl, InputGroup, ListGroup, Row } from 'react-bootstrap';
 import { useHistory, useParams } from "react-router-dom";
 
 import {
@@ -10,9 +9,9 @@ import {
 const GameLobby = (props) => {
   const { players, roomID } = props;
   const history = useHistory();
-  const [cookies, setCookie] = useCookies([roomID])
-  const isCurrentPlayer = (seatId) =>
-    cookies[roomID] && (cookies[roomID].playerSeat === seatId);
+  const [playButtonEnabled, setPlayButtonEnabled] = useState(false);
+  const [roomData, setRoomData] = useState(localStorage.getItem(roomID) || {});
+  const isCurrentPlayer = (seatId) => roomData.playerSeat === seatId;
   const currentSeatState = () => players.reduce((acc, p) => {
     acc[p.id] = !p.name ? 'open':
       isCurrentPlayer(p.id) ? 'player':'taken';
@@ -30,11 +29,11 @@ const GameLobby = (props) => {
   useEffect(
     () => {
       transitionSeats({type: 'refresh'}); 
-      if (players.every(p => 'name' in p)) {
-        history.push("/game/" + roomID + "/");
+      if (players.every(p => 'name' in p) && roomData.playerSeat) {
+        setPlayButtonEnabled(true);
       }
     },
-    [players, history, roomID],
+    [players, roomData],
   );
   const stand = (seatId) => {
     transitionSeats({
@@ -48,7 +47,7 @@ const GameLobby = (props) => {
       },
       body: JSON.stringify({
         playerID: seatId,
-        credentials: cookies[roomID].secret
+        credentials: roomData.secret
       })
     })
     .then(() => {
@@ -64,30 +63,35 @@ const GameLobby = (props) => {
       targetState: 'waiting',
       seatId: seatId 
     });
-    // Stand if necessary.
-    const initialPromise = roomID in cookies ? 
-      stand(cookies[roomID].playerSeat) :
-      Promise.resolve(null);
-    return initialPromise.then(() =>
-      fetch('/games/uncovered/' + roomID + '/join', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          playerID: seatId,
-          playerName: PLAYER_NAMES[seatId]
-        })
+    // Stand up from previous seat if necessary.
+    const maybeStand = roomData.playerSeat ? 
+      () => stand(roomData.playerSeat) :
+      Promise.resolve();
+    return fetch('/games/uncovered/' + roomID + '/join', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        playerID: seatId,
+        playerName: PLAYER_NAMES[seatId]
       })
-    )
+    })
     .then(res => res.json())
     .then(data => {
-      setCookie(
+      // We can't just immediately use roomData after setRoomData because
+      // we're in an asynchronous context and the change is propagated
+      // asynchronously too.
+      // Thus we explicitly pass the same object to both the state and
+      // localStorage.
+      const roomDataSync = {
+        playerSeat: seatId,
+        secret: data.playerCredentials
+      };
+      setRoomData(roomDataSync);
+      localStorage.setItem(
         roomID,
-        {
-          playerSeat: seatId,
-          secret: data.playerCredentials
-        },
+        JSON.stringify(roomDataSync) 
       );
       transitionSeats({
         targetState: 'player',
@@ -96,7 +100,8 @@ const GameLobby = (props) => {
     })
     .catch((err) => {
       
-    });
+    })
+    .then(maybeStand);;
   }
   const renderSeat = (seatId) => {
     const seatState = seatStates[seatId];
@@ -129,6 +134,12 @@ const GameLobby = (props) => {
       <ListGroup className="seats">
         {players.map((p) => renderSeat(p.id))}
       </ListGroup>
+      <Button
+        onClick={() => history.push('/game/' + roomID)}
+        className='play-button'
+        disabled={!playButtonEnabled}>
+        Play!
+      </Button>
       <InputGroup>
         <InputGroup.Prepend>
           <InputGroup.Text>Lobby Link:</InputGroup.Text>

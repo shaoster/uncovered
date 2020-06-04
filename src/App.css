@@ -19,6 +19,10 @@ body {
     min-width: 448px;
 }
 
+.play-button {
+    margin-bottom: 16px;
+}
+
 .seats {
     margin-bottom: 16px;
 }
