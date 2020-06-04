@@ -8,7 +8,7 @@ import Board from './Board';
 console.log(process.env.NODE_ENV);
 const server = process.env.NODE_ENV === 'development' ? 
   `http://localhost:8000`:
-  `http://${window.location.hostname}`;
+  `https://${window.location.hostname}`;
 
 export default (props) => {
   const { roomID } = useParams();
