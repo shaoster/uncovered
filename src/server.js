@@ -19,6 +19,6 @@ server.run(PORT, () => {
         Object.assign(ctx, { path: 'index.html' }),
         next
       );
-    };
+    }
   );
 });
