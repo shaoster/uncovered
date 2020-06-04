@@ -9,7 +9,6 @@
     "boardgame.io": "^0.39.11",
     "bootstrap": "^4.5.0",
     "esm": "^3.2.25",
-    "koa-force-https": "^2.0.1",
     "koa-static": "^5.0.0",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
