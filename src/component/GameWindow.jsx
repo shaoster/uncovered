@@ -7,7 +7,7 @@ import { SocketIO } from 'boardgame.io/multiplayer';
 import Game from '../game';
 import Board from './Board';
 
-const server = `http://${window.location.hostname}:8000`;
+const server = `http://${window.location.hostname}`;
 
 export default (props) => {
   const { roomID } = useParams();
