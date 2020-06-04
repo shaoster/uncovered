@@ -17,18 +17,26 @@ export default (props) => {
     })
     .then(res => res.json())
     .then(data => {
-      history.push("/" + data.gameID)
+      history.push("/lobby/" + data.gameID)
     })
   };
   return (
     <Container className="Create">
       <Row>
+        <Col className="game-name">
+            <h1>Uncovered</h1>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          Number of Players:
+        </Col>
         <Col>
           <select
             value={numPlayers}
             onChange={(evt) => setNumPlayers(parseInt(evt.target.value))}
           >
-            {[2,3,4,5,6].map((n) => <option value={n}>{n}</option>)}
+            {[2,3,4,5,6].map((n) => <option key={n} value={n}>{n}</option>)}
           </select>
         </Col>
         <Col>

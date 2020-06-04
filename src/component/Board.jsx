@@ -15,7 +15,7 @@ import GameOver from './GameOver';
 const DEMO_MODE = false;
 
 const Board = (props) => {
-  const { ctx, moves, playerID, reset } = props;
+  const { G, ctx, moves, playerID, reset } = props;
   const [playerMessage, setPlayerMessage] = useState(null);
   const hasPlayerMessage = useMemo(
     () => playerMessage !== null,
@@ -57,7 +57,7 @@ const Board = (props) => {
             <Button
               onClick={() => moves.uncover()}
               className="uncover-button"
-              disabled={playerID !== ctx.currentPlayer}>
+              disabled={playerID !== ctx.currentPlayer || G.hasUncovered}>
               Uncover!
             </Button>
             <ListGroup>

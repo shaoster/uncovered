@@ -1,12 +1,22 @@
-/*.then(data => fetch(
-  '/games/uncovered/'+ data.roomID + '/join', {
-    method: 'POST',
-    body: JSON.stringify()
-  }
-))
-*/
 import React from 'react';
+import { useHistory, useParams } from "react-router-dom";
+import { useCookies } from 'react-cookie';
+import { Client } from 'boardgame.io/react';
+import { SocketIO } from 'boardgame.io/multiplayer';
 
-export default () => {
-  return (<div>Hello World</div>);
+import Game from '../game';
+import Board from './Board';
+
+export default (props) => {
+  const { roomID } = useParams();
+  const [cookies] = useCookies([roomID]);
+  const history = useHistory();
+
+  const GameClient = Client({
+    game: Game,
+    board: Board,
+    multiplayer: SocketIO({ server: 'localhost:8000' }),
+  });
+  const { playerSeat, secret } = cookies[roomID];
+  return <GameClient gameID={roomID} playerID={playerSeat.toString()} credentials={secret}/>;
 }

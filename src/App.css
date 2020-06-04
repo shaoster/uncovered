@@ -10,19 +10,17 @@ body {
     display: none;
 }
 
-.board {
-    width: 100%;
-}
-
-.phase {
+.lobby {
     border: 2px solid #AAAAAA;
     border-radius: 4px;
-    padding: 4px;
-    margin: 0px 0px 4px 0px;
+    padding: 40px;
+    margin-top: 40px;
     text-align: center;
-/*    min-width: 448px;
-    max-width: 600px;
-*/
+    min-width: 448px;
+}
+
+.seats {
+    margin-bottom: 16px;
 }
 
 .phase > div {
@@ -127,6 +125,11 @@ body {
     margin-right: 0px; 
     min-width: 60px;
 }
+
+.board {
+    width: 100%;
+}
+
 
 .game-name {
     text-align: center;
