@@ -10,7 +10,7 @@ import {
 const GameLobby = (props) => {
   const { players, roomID } = props;
   const history = useHistory();
-  const [cookies, setCookie, removeCookie] = useCookies([roomID])
+  const [cookies, setCookie] = useCookies([roomID])
   const isCurrentPlayer = (seatId) =>
     cookies[roomID] && (cookies[roomID].playerSeat === seatId);
   const currentSeatState = () => players.reduce((acc, p) => {

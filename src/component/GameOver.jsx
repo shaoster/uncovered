@@ -7,7 +7,7 @@ const GameOver = (props) => {
   const { gameover } = props;
   const { roomID } = useParams();
   const history = useHistory();
-  const [cookies, setCookie, removeCookie] = useCookies([roomID]);
+  const [cookies] = useCookies([roomID]);
 
   const score = typeof gameover === 'undefined' ? null : gameover.score;
   const [hide, setHide] = useState(false);

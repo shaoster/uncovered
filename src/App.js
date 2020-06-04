@@ -1,7 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-//import { Lobby } from 'boardgame.io/react';
-//import { SocketIO } from 'boardgame.io/multiplayer';
 
 import GameLobby from './component/GameLobby';
 import GameWindow from './component/GameWindow';
@@ -25,18 +23,3 @@ export default () => (
     </Switch>
   </BrowserRouter>
 );
-
-
-
-//   const importedGames = [{
-//     game: Game,
-//     board: Board,
-//   }];
-//   return (
-//     <Lobby
-//       gameServer={`http://${window.location.hostname}:8000`}
-//       lobbyServer={`http://${window.location.hostname}:8000`}
-//       gameComponents={importedGames}
-//     />
-//   );
-// }
