@@ -19,4 +19,14 @@ if (process.env.NODE_ENV === 'production') {
 // Build path relative to the server.js file
 const frontEndAppBuildPath = path.resolve(__dirname, '../build/');
 server.app.use(serveStatic(frontEndAppBuildPath));
-server.run(PORT);
+
+// Dispatch everything else back to the react-router-dom.
+// You can hit this rule by refreshing on any page but '/'
+server.run(PORT, () => {
+  server.app.use(
+    async (ctx, next) => await serveStatic(frontEndAppBuildPath)(
+      Object.assign(ctx, { path: 'index.html' }),
+      next
+    )
+  )
+});
