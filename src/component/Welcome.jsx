@@ -38,7 +38,6 @@ export default (props) => {
                 ref={slider}
                 defaultValue={numPlayers}
                 onChange={() => {
-                  console.log(slider);
                   setNumPlayers(slider.current.value)
                 }}
               />

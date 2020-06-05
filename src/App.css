@@ -16,7 +16,8 @@ body {
 }
 
 .num-players {
-    animation: highlight 500ms ease-out;
+    font-weight: bold;
+    font-size: large;
 }
 
 .lobby {
