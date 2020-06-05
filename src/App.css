@@ -1,5 +1,5 @@
 body {
-    background-color: #EFEFEF;
+    background-color: #efefef;
 }
 
 .phase {
@@ -8,6 +8,15 @@ body {
 
 .hidden {
     display: none;
+}
+
+.create {
+    width: 100%;
+    text-align: center;
+}
+
+.num-players {
+    animation: highlight 500ms ease-out;
 }
 
 .lobby {

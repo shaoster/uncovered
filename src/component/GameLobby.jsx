@@ -2,6 +2,7 @@ import React, { useEffect, useReducer, useState } from 'react';
 import { Button, Col, Container, FormControl, InputGroup, ListGroup, Row } from 'react-bootstrap';
 import { useHistory, useParams } from "react-router-dom";
 
+import Header from './Header';
 import {
   PLAYER_NAMES
 } from '../Constants';
@@ -204,11 +205,7 @@ export default () => {
   });
   return (
     <Container>
-      <Row>
-        <Col>
-          <h1 className="game-name">Uncovered!</h1>
-        </Col>
-      </Row>
+      <Header/>
       <Row>
         <Col>
         {

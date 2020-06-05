@@ -1,12 +1,15 @@
-import React, {useState} from 'react';
+import React, { createRef, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import {
-  Button, Col, Container, Row
+  Button, Col, Container, Form, Row
 } from 'react-bootstrap';
+
+import Header from './Header';
 
 export default (props) => {
   const history = useHistory();
-  const [numPlayers, setNumPlayers] = useState(2);
+  const slider = createRef();
+  const [numPlayers, setNumPlayers] = useState(4);
   const createGame = () => {
     fetch('/games/uncovered/create', {
       method: 'POST',
@@ -21,24 +24,29 @@ export default (props) => {
     })
   };
   return (
-    <Container className="Create">
+    <Container className="create">
+      <Header/>
       <Row>
-        <Col className="game-name">
-            <h1>Uncovered</h1>
+        <Col>
+          <Form>
+            <Form.Group controlId="numPlayers">
+              <Form.Label>Number of Players: <span className="num-players">{numPlayers}</span></Form.Label>
+              <Form.Control
+                type="range"
+                min={2}
+                max={6}
+                ref={slider}
+                defaultValue={numPlayers}
+                onChange={() => {
+                  console.log(slider);
+                  setNumPlayers(slider.current.value)
+                }}
+              />
+            </Form.Group>
+          </Form>
         </Col>
       </Row>
       <Row>
-        <Col>
-          Number of Players:
-        </Col>
-        <Col>
-          <select
-            value={numPlayers}
-            onChange={(evt) => setNumPlayers(parseInt(evt.target.value))}
-          >
-            {[2,3,4,5,6].map((n) => <option key={n} value={n}>{n}</option>)}
-          </select>
-        </Col>
         <Col>
           <Button onClick={()=>createGame()}>
             Create Game

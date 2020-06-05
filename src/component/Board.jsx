@@ -9,8 +9,9 @@ import {
   PLAYER_NAMES,
 } from '../Constants';
 
-import PlayerArea from './PlayerArea';
 import GameOver from './GameOver';
+import Header from './Header';
+import PlayerArea from './PlayerArea';
 
 const DEMO_MODE = false;
 
@@ -37,14 +38,7 @@ const Board = (props) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Row key="header">
-        <Col className="game-name">
-          <h1>Uncovered!</h1>
-        </Col>
-      </Row>
-      <Row key="help">
-        <Col className="instructions"><a href="https://github.com/shaoster/uncovered">How do I play?</a></Col>
-      </Row>
+      <Header/>
       <Row>
         <Col xs={4}>
           <Card className="controls">
