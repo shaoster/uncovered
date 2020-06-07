@@ -4,8 +4,6 @@ import {
     SWAP_VISIBILITY
 } from './Constants';
 
-const DEMO_MODE = false;
-
 function GenerateInitialHands(ctx, numPlayers) {
   // Create the deck.
   const deck = new Array(UNIQUE_CARD_COUNT * ctx.numPlayers)
@@ -99,8 +97,8 @@ export const Game = {
     return {
       hands: hands,
       hasUncovered: hasUncovered,
-      visibility: visibility,
       swapVisibilityMode: swapVisibilityMode,
+      visibility: visibility,
     };
   },
   moves: {
@@ -163,11 +161,7 @@ export const Game = {
   playerView: (G, ctx, playerID) => {
     const strippedHands = new Array(ctx.numPlayers);
     const visibility = G.visibility;
-    // In demo mode, we just show the player whose turn it is so we don't have to set up
-    // multiple clients for multiple players...
-    // In a real multiplayer setup, we should use the visibility of the actual player
-    // so they don't see things they shouldn't when it's not their turn.
-    const viewingPlayer = DEMO_MODE ? ctx.playOrderPos : playerID;
+    const viewingPlayer = playerID;
     for (let viewedPlayer = 0; viewedPlayer < ctx.numPlayers; viewedPlayer++) {
       const viewedHand = new Array(UNIQUE_CARD_COUNT);
       for (let handIndex = 0; handIndex < UNIQUE_CARD_COUNT; handIndex++) {
