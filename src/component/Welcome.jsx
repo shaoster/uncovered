@@ -34,10 +34,9 @@ export default (props) => {
               <Form.Control
                 type="range"
                 min={2}
-                max={6}
+                max={4}
                 ref={slider}
                 defaultValue={numPlayers}
-                disabled={true}
                 onChange={() => {
                   setNumPlayers(slider.current.value)
                 }}

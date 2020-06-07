@@ -176,7 +176,7 @@ export const Game = {
       visibility: visibility,
     }
   },
-  minPlayers: 4,
+  minPlayers: 2,
   maxPlayers: 4,
 };
 
