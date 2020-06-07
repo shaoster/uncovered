@@ -1,7 +1,7 @@
 import {
-    UNIQUE_CARD_COUNT,
     INITIAL_VISIBILITY,
-    SWAP_VISIBILITY
+    SWAP_VISIBILITY,
+    UNIQUE_CARD_COUNT,
 } from './Constants';
 
 function GenerateInitialHands(ctx, numPlayers) {
@@ -22,6 +22,7 @@ function GenerateInitialHands(ctx, numPlayers) {
     }
     hands[player].push(shuffled[i]);
   }
+  return hands;
 }
 
 /**
@@ -94,12 +95,13 @@ export const Game = {
       setupData.hasUncovered : false;
     const swapVisibilityMode = 'swapVisibilityMode' in setupData ?
       setupData.swapVisibilityMode : SWAP_VISIBILITY;
-    return {
+    const G = {
       hands: hands,
       hasUncovered: hasUncovered,
       swapVisibilityMode: swapVisibilityMode,
       visibility: visibility,
     };
+    return G;
   },
   moves: {
     swapCards: (G, ctx, currentHandIndex, otherPlayer, theirHandIndex) => {
@@ -110,13 +112,13 @@ export const Game = {
       G.hands[otherPlayer][theirHandIndex] = tmpCard;
       switch (G.swapVisibilityMode) {
         // There's two ways a swap can occur:
-        case "FUOT":
+        case 'FUOT':
           // - FU/OT (Face Up/Over Table)
           //   Everybody knows the identity of both cards exchanged
           MakeVisibleToAll(G, ctx.numPlayers, currentPlayer, currentHandIndex);
           MakeVisibleToAll(G, ctx.numPlayers, otherPlayer, theirHandIndex);
           break;
-        case "FDUT":
+        case 'FDUT':
           // - FD/UT (Face Down/Under Table)
           //   Only the 2 players involved in the exchange of the cards know their identity.
           //
@@ -170,11 +172,10 @@ export const Game = {
       }
       strippedHands[viewedPlayer] = viewedHand;
     }
-    return {
-      hands: strippedHands,
-      hasUncovered: G.hasUncovered,
-      visibility: visibility,
-    }
+    return Object.assign({},
+      G,
+      {hands: strippedHands}
+    );
   },
   minPlayers: 2,
   maxPlayers: 4,

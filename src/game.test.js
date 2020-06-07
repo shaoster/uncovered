@@ -8,7 +8,7 @@ import Game, {
 // Swap tests
 //
 
-it('face up reveals to all', () => {
+it('FUOT reveals to all', () => {
   const G = {
     hands: [
       [1,2,3,4],
@@ -46,7 +46,7 @@ it('face up reveals to all', () => {
 
 
 
-it('privacy is preserved', () => {
+it('FDUT privacy is preserved', () => {
   const G = {
     hands: [
       [1,2,3,4],
@@ -82,7 +82,7 @@ it('privacy is preserved', () => {
   expect(G.visibility[2][1][2]).toBeFalsy();
 });
 
-it('visibility transfers with card', () => {
+it('FDUT visibility transfers with card', () => {
   const G = {
     hands: [
       [1,2,3,4],
