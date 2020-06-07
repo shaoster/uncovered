@@ -37,6 +37,7 @@ export default (props) => {
                 max={6}
                 ref={slider}
                 defaultValue={numPlayers}
+                disabled={true}
                 onChange={() => {
                   setNumPlayers(slider.current.value)
                 }}

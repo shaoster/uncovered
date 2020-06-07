@@ -98,7 +98,7 @@ export const Game = {
       setupData.swapVisibilityMode : SWAP_VISIBILITY;
     return {
       hands: hands,
-      hasUncovered: false,
+      hasUncovered: hasUncovered,
       visibility: visibility,
       swapVisibilityMode: swapVisibilityMode,
     };
