@@ -49,20 +49,36 @@ const ConfirmDialog = (props) => {
     </Modal>
   );
 }
+
+function parseCard(card) {
+  // HACKHACKHACK: This is a bogus way to encode the position data...
+  const cardIndex = parseInt(card.index);
+  const playerIndex = Math.floor(cardIndex / UNIQUE_CARD_COUNT);
+  const handIndex = cardIndex % UNIQUE_CARD_COUNT;
+  return {
+    playerIndex: playerIndex,
+    handIndex: handIndex
+  }
+}
+
 const PlayerArea = (props) => {
   const { G, ctx, moves, setPlayerMessage } = useContext(GameContext);
   // Used for toggling which (if any) card to show visibility for.
   const [cardToCheckVisibility, setCardToCheckVisibility] = useState(null);
   const [confirmPromise, setConfirmPromise] = useState({resolve:null, reject: null});
-  const performSwap = (source, destination) => {
-    // HACKHACKHACK: This is a bogus way to encode the position data...
-    const sourceIndex = parseInt(source.index);
-    const playerOneIndex = Math.floor(sourceIndex / UNIQUE_CARD_COUNT);
-    const playerOneHandIndex = sourceIndex % UNIQUE_CARD_COUNT;
-    const destIndex = parseInt(destination.index);
-    const playerTwoIndex = Math.floor(destIndex / UNIQUE_CARD_COUNT);
-    const playerTwoHandIndex = destIndex % UNIQUE_CARD_COUNT;
-
+  const onDragEnd = async (result) => {
+    const { source, destination } = result;
+    if (destination === null) {
+      return;
+    }
+    const {
+      playerIndex: playerOneIndex,
+      handIndex: playerOneHandIndex
+    } = parseCard(source);
+    const {
+      playerIndex: playerTwoIndex,
+      handIndex: playerTwoHandIndex
+    } = parseCard(destination);
     if (playerOneIndex === playerTwoIndex) {
       // Swaps must be between different players.
       if (playerOneHandIndex !== playerTwoHandIndex) {
@@ -73,6 +89,21 @@ const PlayerArea = (props) => {
       }
       return;
     }
+    if (!(ctx.playOrderPos in [playerOneIndex, playerTwoIndex])) {
+      setPlayerMessage({
+        title: "Invalid Move!",
+        body: "None of the cards you want to swap are yours!"
+      })
+      return;
+    }
+    try {
+      await new Promise((resolve, reject) => setConfirmPromise({
+        resolve: resolve,
+        reject: reject
+      }));
+    } catch {
+      return;
+    }
     if (ctx.playOrderPos === playerOneIndex) {
       moves.swapCards(playerOneHandIndex, playerTwoIndex, playerTwoHandIndex);
       return;
@@ -81,22 +112,6 @@ const PlayerArea = (props) => {
       moves.swapCards(playerTwoHandIndex, playerOneIndex, playerOneHandIndex);
       return;
     }
-    setPlayerMessage({
-      title: "Invalid Move!",
-      body: "None of the cards you want to swap are yours!"
-    });
-  };
-  const onDragEnd = (result) => {
-    const { source, destination } = result;
-    if (destination === null) {
-      return;
-    }
-    new Promise((resolve, reject) => setConfirmPromise({
-      resolve: resolve,
-      reject: reject
-    }))
-    .then(() => performSwap(source, destination))
-    .catch(() => console.log("Swap canceled!"));
   };
   const playerHands = ctx.playOrder.map((player, playerIndex) => {
     const isPlayerTurn = ctx.playOrderPos === playerIndex;
